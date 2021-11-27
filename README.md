@@ -93,3 +93,7 @@ We expect that these functions will be tested both manually and automatically by
 At Sliide we highly appreciate good communication at all times so, if you have any questions, don’t hesitate to ask   
 
 ## Good luck!   
+
+
+## Espresso tests:
+todo 

@@ -70,7 +70,8 @@ class LoginActivity : AppCompatActivity(), HasAndroidInjector {
     private fun showLoginError(@LoginFailReason loginFailReason: Int) {
         when (loginFailReason) {
             WRONG_USER_NAME -> editTextUserName.error = getString(R.string.login_wrong_user_name_error)
-            WRONG_PASSWORD -> editTextPassword.error = getString(R.string.login_wrong_password_error)
+            WRONG_PASSWORD ->
+                editTextPassword.error = getString(R.string.login_wrong_password_error)
         }
     }
 }

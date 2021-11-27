@@ -66,5 +66,7 @@ dependencies {
 
     androidTestImplementation deps.espresso.junit_ext
     androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
+    implementation deps.espresso.idling
     androidTestImplementation deps.test_rules
 }
