@@ -47,8 +47,8 @@ class NewsWithoutInternetTest {
                 "e2e test - error text on News page is not correct",
                 "Failed to load news", getNewsLoadError()
             )
-            // todo: uncomment after adding retry button
-            //retryBtnShouldBeDisplayed()
+            // TODO: uncomment after adding retry button
+            // retryBtnShouldBeDisplayed()
         }
     }
 }

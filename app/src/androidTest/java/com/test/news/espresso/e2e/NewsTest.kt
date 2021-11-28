@@ -44,7 +44,7 @@ class NewsTest {
         newsPage() {
             swipeNewsHorizontally(0)
             swipeNewsHorizontally(1)
-            //todo check image?
+            // TODO: check if swipe was successful
         }
     }
 

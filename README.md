@@ -95,5 +95,26 @@ At Sliide we highly appreciate good communication at all times so, if you have a
 ## Good luck!   
 
 
-## Espresso tests:
-todo 
+## Espresso UI tests:
+ 
+- package e2e contains tests files
+- class User in package models contains user credentials
+- package pages contains robots for performing actions on the app views, there you can find selectors/matchers for UI elements
+- package utils contains helper functions
+
+#### issue to report in Jira:
+
+Steps to reproduce:
+1. Turn off internet connection on the device
+2. Login to the app, using for example user1/password
+3. Wait for News view to load
+
+Actual result:
+User can see news load error
+
+Expected result:
+User should see load error and retry button
+
+Tested on Android emulator with API 28.
+Attachment: screenshot/video
+

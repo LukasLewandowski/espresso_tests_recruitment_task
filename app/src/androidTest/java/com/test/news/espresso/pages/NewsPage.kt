@@ -49,10 +49,12 @@ class NewsRobot(lackOfInternet: Boolean) : BaseRobot() {
                 swipeLeft()
             )
         )
+        onView(withId(R.id.recyclerViewNews)).check(matches(isCompletelyDisplayed()))
     }
 
     fun clickNewsImageAtPosition(position: Int) {
-        Thread.sleep(2000) // TODO: remove hardcoded sleep
+        Thread.sleep(500) // TODO: remove hardcoded sleep - click() on RecyclerView has no effect without it?
+        onView(withId(R.id.recyclerViewNews)).check(matches(isCompletelyDisplayed()))
         onView(withId(R.id.recyclerViewNews)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 position,
