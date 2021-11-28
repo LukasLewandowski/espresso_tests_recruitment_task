@@ -1,27 +1,18 @@
 package com.test.news.espresso.e2e
 
-import android.webkit.WebChromeClient
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.matcher.IntentMatchers
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.web.assertion.WebViewAssertions
-import androidx.test.espresso.web.assertion.WebViewAssertions.webMatches
-import androidx.test.espresso.web.sugar.Web
-import androidx.test.espresso.web.sugar.Web.onWebView
-import androidx.test.espresso.web.webdriver.DriverAtoms.findElement
-import androidx.test.espresso.web.webdriver.Locator
+import androidx.test.filters.LargeTest
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.test.news.espresso.pages.loginPage
 import com.test.news.espresso.pages.newsPage
 import com.test.news.features.login.presentation.LoginActivity
 import com.test.news.espresso.models.validLoginUser
-import com.test.news.features.news.presentation.NewsActivity
 import org.junit.*
+import org.junit.runner.RunWith
 
+@LargeTest
+@RunWith(AndroidJUnit4ClassRunner::class)
 class NewsTest {
 
     @Before
@@ -51,7 +42,6 @@ class NewsTest {
     @Test
     fun test_LoadNews() {
         newsPage() {
-            intended(hasComponent(NewsActivity::class.java.name))
             swipeNewsHorizontally(0)
             swipeNewsHorizontally(1)
             //todo check image?
@@ -67,13 +57,8 @@ class NewsTest {
     @Test
     fun test_OpenNewsInExternalBrowser() {
         newsPage() {
-//            Intents.init()
             clickNewsImageAtPosition(0)
-            //todo web?
-//            onWebView().withElement(findElement(Locator.CLASS_NAME, "android.widget.Image"))
-
-            intended(hasComponent(Web::class.java.name))
-//            Intents.release()
+            checkOpenedUrlInBrowser("www.newsbtc.com")
         }
     }
 }

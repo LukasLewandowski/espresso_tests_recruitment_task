@@ -25,11 +25,6 @@ open class BaseRobot {
     fun clickButton(resId: Int): ViewInteraction =
         onView((withId(resId))).perform(ViewActions.click())
 
-    fun textView(resId: Int): ViewInteraction = onView(withId(resId))
-
-    fun matchText(viewInteraction: ViewInteraction, text: String): ViewInteraction = viewInteraction
-        .check(matches(withText(text)))
-
     private fun checkInvisibility(matcher: Matcher<View>): Boolean {
         return try {
             onView(matcher).check(matches(withEffectiveVisibility(Visibility.GONE)))

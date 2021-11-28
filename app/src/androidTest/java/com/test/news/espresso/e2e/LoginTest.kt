@@ -6,13 +6,17 @@ import com.test.news.espresso.pages.newsPage
 import com.test.news.features.login.presentation.LoginActivity
 import org.junit.Rule
 import org.junit.Test
-import android.content.Intent
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.pressBackUnconditionally
+import androidx.test.filters.LargeTest
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.test.news.espresso.models.invalidLoginUser
 import com.test.news.espresso.models.validLoginUser
-import org.junit.Assert
+import com.test.news.features.news.presentation.NewsActivity
+import org.junit.runner.RunWith
 
-
+@LargeTest
+@RunWith(AndroidJUnit4ClassRunner::class)
 class LoginTest {
 
     @get:Rule
@@ -27,10 +31,6 @@ class LoginTest {
      * Given - the user provided right user name and password
      * When - login button is clicked
      * Then - user is taken to the news screen
-     *
-     * Scenario 4 - user opens app next time (when previously logged in):
-     * Given - the user opens app next time (when previously logged in)
-     * Then - user is taken straight to the news screen
      */
     @Test
     fun test_LoginWithValidCredentials() {
@@ -40,12 +40,6 @@ class LoginTest {
             clickLogin()
         }
         newsPage {}
-        Assert.assertTrue(activityTestRule.activity.isFinishing)
-        pressBackUnconditionally()
-        activityTestRule.finishActivity()
-        activityTestRule.launchActivity(Intent())
-        // TODO: uncomment after fixing the bug with holding the app state after going to background
-        // newsPage {}
     }
 
     /**
@@ -82,5 +76,24 @@ class LoginTest {
             clickLogin()
             checkUsernameValidationError("Wrong user name")
         }
+    }
+
+    /**
+     * Scenario 4 - user opens app next time (when previously logged in):
+     * Given - the user opens app next time (when previously logged in)
+     * Then - user is taken straight to the news screen
+     */
+    @Test
+    fun test_ReopenAuthorizedApp() {
+        loginPage {
+            setUsername(validLoginUser.username)
+            setPassword(validLoginUser.password)
+            clickLogin()
+        }
+        newsPage {}
+        pressBackUnconditionally()
+        activityTestRule.finishActivity()
+        ActivityScenario.launch(NewsActivity::class.java)
+        newsPage {}
     }
 }

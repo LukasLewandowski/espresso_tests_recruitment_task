@@ -12,6 +12,7 @@ import com.test.news.R
 import com.test.news.features.news.domain.model.NewsModel
 import com.test.news.features.news.presentation.NewsIntent.GetNews
 import com.test.news.features.news.presentation.adapter.NewsWidgetsAdapter
+import com.test.news.utils.EspressoIdlingResource
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
