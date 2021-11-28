@@ -95,16 +95,20 @@ At Sliide we highly appreciate good communication at all times so, if you have a
 ## Good luck!   
 
 ------------------------------------------------------------------------------------------------------------------
-## Espresso UI tests:
+# Espresso UI tests:
  
-- package e2e contains tests files
-- class User in package models contains user credentials
-- package pages contains robots for performing actions on the app views, there you can find selectors/matchers for UI elements
-- package utils contains helper functions
+Framework structure:
+- package "e2e" contains tests files
+- class "User" in package "models" contains user credentials
+- package "pages" contains robots for performing actions on the app views, there you can find selectors/matchers for UI elements
+- package "utils" contains helper functions
+
+## Executing tests:
+- All tests can be launched by running tests suite class: "UIRegressionTestsSuite"
 
 ### Issue to report in Jira:
 
-Title: Android - lack of Retry button on News view when there is not internet connection
+Title: Android - missing "Retry" button on News view when lack internet connection
 
 Steps to reproduce:
 1. Turn off internet connection on the device
