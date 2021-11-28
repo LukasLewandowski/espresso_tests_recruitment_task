@@ -55,25 +55,32 @@ class LoginTest {
      * Then - error markers are displayed by user name and/or password entries
      */
     @Test
-    fun test_IncorrectCredentials() {
+    fun test_IncorrectUsername() {
         loginPage {
             setUsername(invalidLoginUser.username)
             setPassword(validLoginUser.password)
             clickLogin()
             checkUsernameValidationError("Wrong user name")
         }
+    }
+
+    @Test
+    fun test_IncorrectPassword() {
         loginPage {
             setUsername(validLoginUser.username)
             setPassword(invalidLoginUser.password)
             clickLogin()
             checkPasswordValidationError("Wrong password")
         }
+    }
+
+    @Test
+    fun test_IncorrectCredentials() {
         loginPage {
             setUsername(invalidLoginUser.username)
             setPassword(invalidLoginUser.password)
             clickLogin()
             checkUsernameValidationError("Wrong user name")
-            checkPasswordValidationError("Wrong password")
         }
     }
 }

@@ -1,22 +1,32 @@
 package com.test.news.espresso.e2e
 
-import androidx.test.espresso.IdlingRegistry
+import android.webkit.WebChromeClient
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.matcher.ViewMatchers.assertThat
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.web.assertion.WebViewAssertions
+import androidx.test.espresso.web.assertion.WebViewAssertions.webMatches
+import androidx.test.espresso.web.sugar.Web
+import androidx.test.espresso.web.sugar.Web.onWebView
+import androidx.test.espresso.web.webdriver.DriverAtoms.findElement
+import androidx.test.espresso.web.webdriver.Locator
 import androidx.test.rule.ActivityTestRule
 import com.test.news.espresso.pages.loginPage
 import com.test.news.espresso.pages.newsPage
 import com.test.news.features.login.presentation.LoginActivity
-import org.junit.Rule
-import org.junit.Test
 import com.test.news.espresso.models.validLoginUser
-import com.test.news.utils.EspressoIdlingResource
-import org.junit.After
-import org.junit.Before
-
+import com.test.news.features.news.presentation.NewsActivity
+import org.junit.*
 
 class NewsTest {
 
     @Before
     fun setup() {
+        Intents.init()
         loginPage {
             setUsername(validLoginUser.username)
             setPassword(validLoginUser.password)
@@ -24,16 +34,10 @@ class NewsTest {
         }
     }
 
-//    @Before
-//    fun registerIdlingResource() {
-//        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-//    }
-//
-//
-//    @After
-//    fun unregisterIdlingResource() {
-//        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-//    }
+    @After
+    fun tearDown() {
+        Intents.release()
+    }
 
     @get:Rule
     var activityTestRule = ActivityTestRule<LoginActivity>(LoginActivity::class.java)
@@ -46,20 +50,12 @@ class NewsTest {
      */
     @Test
     fun test_LoadNews() {
-        newsPage {
+        newsPage() {
+            intended(hasComponent(NewsActivity::class.java.name))
             swipeNewsHorizontally(0)
             swipeNewsHorizontally(1)
+            //todo check image?
         }
-    }
-
-    /**
-     * Scenario 2 - failed to load images:
-     * Given - the user successfully logged in to the app
-     * When - there is no internet connection
-     * Then - “failed to load news” error message is displayed and Retry button
-     */
-    @Test
-    fun test_FailedToLoadNews() {
     }
 
     /**
@@ -70,5 +66,14 @@ class NewsTest {
      */
     @Test
     fun test_OpenNewsInExternalBrowser() {
+        newsPage() {
+//            Intents.init()
+            clickNewsImageAtPosition(0)
+            //todo web?
+//            onWebView().withElement(findElement(Locator.CLASS_NAME, "android.widget.Image"))
+
+            intended(hasComponent(Web::class.java.name))
+//            Intents.release()
+        }
     }
 }

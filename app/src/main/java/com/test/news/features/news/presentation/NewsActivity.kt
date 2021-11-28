@@ -12,12 +12,10 @@ import com.test.news.R
 import com.test.news.features.news.domain.model.NewsModel
 import com.test.news.features.news.presentation.NewsIntent.GetNews
 import com.test.news.features.news.presentation.adapter.NewsWidgetsAdapter
-import com.test.news.utils.EspressoIdlingResource
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_news.*
-import java.lang.IllegalStateException
 import java.lang.NullPointerException
 import javax.inject.Inject
 
@@ -36,7 +34,6 @@ class NewsActivity : AppCompatActivity(), HasAndroidInjector {
     override fun androidInjector() = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        EspressoIdlingResource.increment()
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[NewsViewModel::class.java]
@@ -51,11 +48,10 @@ class NewsActivity : AppCompatActivity(), HasAndroidInjector {
         recyclerViewNews.adapter = newsAdapter
         initViewModel()
         setTitle()
-        EspressoIdlingResource.decrement()
     }
 
     private fun setTitle() {
-        if(isPremium()) title = "$title Prenium"
+        if(isPremium()) title = "$title Premium"
     }
 
     private fun initViewModel() {

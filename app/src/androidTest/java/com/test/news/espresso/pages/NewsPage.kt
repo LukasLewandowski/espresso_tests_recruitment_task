@@ -1,31 +1,36 @@
 package com.test.news.espresso.pages
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.NoMatchingViewException
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeLeft
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.contrib.RecyclerViewActions.scrollTo
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import com.test.news.R
 
-fun newsPage(func: NewsRobot.() -> Unit) = NewsRobot()
-    .apply { func() }
+fun newsPage(lackOfInternet: Boolean = false, func: NewsRobot.() -> Unit) =
+    NewsRobot(lackOfInternet)
+        .apply { func() }
 
-class NewsRobot : BaseRobot() {
+class NewsRobot(lackOfInternet: Boolean) : BaseRobot() {
     init {
-        waitUntilElementIsVisible(withId(R.id.progressBar))
-        waitUntilElementIsNotVisible(withId(R.id.progressBar))
-//        try {
-//            onView(withId(R.id.recyclerViewNews)).check(matches(isDisplayed()))
-//        } catch (error: Error) {
-//            waitUntilElementIsNotVisible(withId(R.id.progressBar))
-//        }
-//        onView(withId(R.id.recyclerViewNews)).check(matches(isDisplayed()))
+        if (!lackOfInternet) {
+            try {
+                waitUntilElementIsVisible(withId(R.id.progressBar))
+            } catch (error: AssertionError) {
+                Log.d("e2e", "progressBar is not visible")
+            }
+            waitUntilElementIsNotVisible(withId(R.id.progressBar))
+            checkIfAppNameIsDisplayed()
+        } else {
+            checkIfAppNameIsDisplayed()
+        }
+    }
+
+    private fun checkIfAppNameIsDisplayed() {
+        onView(withText(R.string.app_name)).check(matches(isDisplayed()))
     }
 
     fun swipeNewsHorizontally(position: Int) {
@@ -45,4 +50,12 @@ class NewsRobot : BaseRobot() {
             )
         )
     }
+
+    fun getNewsLoadError(): String {
+        return getText(withId(R.id.textViewError))
+    }
+
+//    fun retryBtnShouldBeDisplayed() {
+//        onView(withId(R.id.retry)).check(matches(isDisplayed()))
+//    }
 }
