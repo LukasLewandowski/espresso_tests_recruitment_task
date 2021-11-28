@@ -94,7 +94,7 @@ At Sliide we highly appreciate good communication at all times so, if you have a
 
 ## Good luck!   
 
-
+------------------------------------------------------------------------------------------------------------------
 ## Espresso UI tests:
  
 - package e2e contains tests files
@@ -102,7 +102,9 @@ At Sliide we highly appreciate good communication at all times so, if you have a
 - package pages contains robots for performing actions on the app views, there you can find selectors/matchers for UI elements
 - package utils contains helper functions
 
-#### issue to report in Jira:
+### Issue to report in Jira:
+
+Title: Android - lack of Retry button on News view when there is not internet connection
 
 Steps to reproduce:
 1. Turn off internet connection on the device
